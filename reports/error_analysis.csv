@@ -1,0 +1,4 @@
+text,real,predicted,category
+La reunión será mañana,neutral,negative,REVISAR
+No recomiendo este servicio,negative,neutral,REVISAR
+La respuesta llegó a tiempo,positive,negative,REVISAR
