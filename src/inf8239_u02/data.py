@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import hashlib
+import zipfile
 from pathlib import Path
 
 import pandas as pd
 
 from .config import settings
+
+SMS_SPAM_MEMBER = "SMSSpamCollection"
 
 
 def sha256(path: Path) -> str:
@@ -14,6 +17,25 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: file.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def prepare_sms_spam(zip_path: Path, destination: Path) -> Path:
+    """Extrae el SMS Spam Collection (texto separado por tabulador, sin
+    cabecera) del .zip oficial de UCI y lo guarda como CSV con columnas
+    ``label,text`` en ``destination``. No depende de rutas absolutas."""
+    with zipfile.ZipFile(zip_path) as archive:
+        with archive.open(SMS_SPAM_MEMBER) as member:
+            frame = pd.read_csv(
+                member,
+                sep="\t",
+                header=None,
+                names=["label", "text"],
+                quoting=3,
+                encoding="utf-8",
+            )
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    frame.to_csv(destination, index=False)
+    return destination
 
 
 def load_dataset(path: Path | None = None) -> pd.DataFrame:
