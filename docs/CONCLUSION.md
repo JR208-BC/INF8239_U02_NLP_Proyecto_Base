@@ -10,4 +10,4 @@ El análisis de los 28 errores de prueba de la regresión logística, categoriza
 
 La decisión antes de cualquier despliegue es no publicar este modelo como filtro automático sin supervisión humana. El corpus es de 2011-2012 y en inglés, por lo que no representa patrones de spam actuales (enlaces cortos, fraude por voz, otros idiomas) ni debe asumirse vigente fuera de ese dominio. Antes de un uso real convendría ampliar el corpus con ejemplos recientes, ajustar el umbral de decisión para priorizar el recall de `spam` dado el costo asimétrico de los falsos negativos, y mantener revisión humana para las predicciones de menor confianza.
 
-Repositorio: https://github.com/JR208-BC/inf8239-u02-nlp-reproducible
+Repositorio: https://github.com/JR208-BC/INF8239_U02_NLP_Proyecto_Base
